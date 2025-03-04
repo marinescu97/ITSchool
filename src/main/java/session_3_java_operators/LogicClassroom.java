@@ -1,4 +1,4 @@
-package main.java.session_3_java_operators;
+package java.session_3_java_operators;
 
 public class LogicClassroom {
     public static void main(String[] args) {

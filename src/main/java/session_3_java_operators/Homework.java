@@ -1,4 +1,4 @@
-package main.java.session_3_java_operators;
+package session_3_java_operators;
 
 import java.util.Scanner;
 

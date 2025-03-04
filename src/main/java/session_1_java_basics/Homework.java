@@ -1,4 +1,4 @@
-package main.java.session_1_java_basics;
+package session_1_java_basics;
 
 import java.util.Scanner;
 
