@@ -2,9 +2,8 @@ package session_7_Utils.Homework.EventScheduler;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
-public class Event {
+public class Event implements Comparable<Event> {
     private String eventName;
     private String eventDescription;
     private LocalDateTime eventDateTime;
@@ -73,17 +72,7 @@ public class Event {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Event event = (Event) o;
-        return Objects.equals(getEventName(), event.getEventName()) && Objects.equals(getEventDateTime(), event.getEventDateTime());
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hashCode(getEventName());
-        result = 31 * result + Objects.hashCode(getEventDateTime());
-        return result;
+    public int compareTo(Event o) {
+        return this.eventDateTime.compareTo(o.eventDateTime);
     }
 }

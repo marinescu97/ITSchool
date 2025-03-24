@@ -2,7 +2,7 @@ package session_7_Utils.Homework.EventScheduler;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
 
 public class Scheduler {
@@ -17,13 +17,15 @@ public class Scheduler {
     }
 
     public boolean addEvent(Event e){
-        if (events.contains(e)){
-            System.out.println("The event is already in the list.");
-            return false;
+        int index = Collections.binarySearch(events, e);
+        if (index < 0){
+            index = -(index + 1);
+            events.add(index, e);
+            return true;
         }
-        events.add(e);
-        sortEvents();
-        return true;
+
+        System.out.println("The event is already in the list.");
+        return false;
     }
 
     public boolean removeEvent(String eventName){
@@ -64,9 +66,5 @@ public class Scheduler {
             }
         }
         return pendingReminders;
-    }
-
-    private void sortEvents(){
-        events.sort(Comparator.comparingLong(Event::timeUntilEvent));
     }
 }
