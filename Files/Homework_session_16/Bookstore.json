@@ -1,0 +1,18 @@
+{
+  "bookstore": {
+    "book": [
+      {
+        "isbn": "123-456-789",
+        "title": "The Great Adventure",
+        "author": "John Doe",
+        "price": "19.99"
+      },
+      {
+        "isbn": "789-101-112",
+        "title": "Java Essentials",
+        "author": "Jane Doe",
+        "price": "29.99"
+      }
+    ]
+  }
+}
