@@ -1,6 +1,8 @@
 package session_12_OOP_3.Homework.SmartHome.Devices;
 
 import session_12_OOP_3.Homework.SmartHome.DeviceFunctionalities.Switchable;
+import session_12_OOP_3.Homework.SmartHome.ExternalIntegrations.NewsArticle;
+import session_12_OOP_3.Homework.SmartHome.ExternalIntegrations.NewsService;
 import session_12_OOP_3.Homework.SmartHome.Types.ControlType;
 
 public class TV extends Device implements Switchable {
@@ -72,6 +74,23 @@ public class TV extends Device implements Switchable {
 
         this.volume = volume;
         System.out.println(getName() + "'s volume changed to  " + volume);
+    }
+
+    private void displayNews(String title, String description){
+        System.out.printf("""
+                Displaying on %s...
+                Title: %s
+                Description: %s
+                """, getName(), title, description);
+    }
+
+    @Override
+    protected void checkAPIAndAct() {
+        NewsArticle article = NewsService.getOneLocalNews();
+
+        if (article != null) {
+            displayNews(article.title(), article.description());
+        }
     }
 
     @Override

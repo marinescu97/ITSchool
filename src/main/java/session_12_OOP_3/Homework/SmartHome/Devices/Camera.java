@@ -1,9 +1,10 @@
 package session_12_OOP_3.Homework.SmartHome.Devices;
 
+import session_12_OOP_3.Homework.SmartHome.DeviceFunctionalities.Notifiable;
 import session_12_OOP_3.Homework.SmartHome.DeviceFunctionalities.Switchable;
 import session_12_OOP_3.Homework.SmartHome.Types.ControlType;
 
-public class Camera extends Device implements Switchable {
+public class Camera extends Device implements Switchable, Notifiable {
     private boolean isOn;
     private boolean isRecording;
     private boolean movement;
@@ -65,11 +66,17 @@ public class Camera extends Device implements Switchable {
     private void handleRecording(){
         if (movement){
             record();
+            alert();
             super.getEnergyManager().startUsage();
         } else {
             stopRecording();
             super.getEnergyManager().stopUsage();
         }
+    }
+
+    @Override
+    public void alert() {
+        getHomeOwner().receiveAlert("The " + getName() + " is starting recording.");
     }
 
     @Override
