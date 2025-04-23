@@ -16,6 +16,10 @@ public class Owner extends User {
         this.friends = new HashSet<>();
     }
 
+    public Set<User> getFriends() {
+        return friends;
+    }
+
     public void makeRoomCommon(Room room, boolean common){
         if (getRooms().contains(room)){
             room.setCommon(common);
@@ -60,6 +64,7 @@ public class Owner extends User {
     public void addDevice(Device device, Room room){
         if (getRooms().contains(room)){
             room.addDevice(device);
+            device.setHomeOwner(this);
         } else {
             System.out.println("The " + room + " is not in the list.");
         }
@@ -72,6 +77,7 @@ public class Owner extends User {
             System.out.println("The " + device.getName() + " is not assigned to any room.");
         } else {
             room.getDevices().remove(device);
+            device.setHomeOwner(null);
             System.out.println("The " + device.getName() + " was deleted from " + room.getName() + ".");
         }
     }

@@ -1,6 +1,8 @@
 package session_12_OOP_3.Homework.SmartHome.Devices;
 
 import session_12_OOP_3.Homework.SmartHome.DeviceFunctionalities.Switchable;
+import session_12_OOP_3.Homework.SmartHome.ExternalIntegrations.WeatherData;
+import session_12_OOP_3.Homework.SmartHome.ExternalIntegrations.WeatherService;
 import session_12_OOP_3.Homework.SmartHome.Types.ControlType;
 
 public class Thermostat extends Device implements Switchable {
@@ -55,6 +57,22 @@ public class Thermostat extends Device implements Switchable {
 
         this.temperature = (double) Math.round(temperature * 100) / 100;
         System.out.println("The temperature of " + getName() + " was changed to " + this.temperature + ".");
+    }
+
+    @Override
+    protected void checkAPIAndAct() {
+        WeatherData weather = WeatherService.getCurrentWeather();
+
+        if (weather != null) {
+            System.out.println("Temperature from local weather API: " + weather.temperature());
+            int targetTemperature = 20;
+            if (weather.temperature() > 28){
+                targetTemperature = 18;
+            } else if (weather.temperature() < 18) {
+                targetTemperature = 23;
+            }
+            changeTemperature(targetTemperature);
+        }
     }
 
     @Override

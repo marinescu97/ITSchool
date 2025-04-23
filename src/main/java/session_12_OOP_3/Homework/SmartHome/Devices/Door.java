@@ -1,10 +1,15 @@
 package session_12_OOP_3.Homework.SmartHome.Devices;
 
 import session_12_OOP_3.Homework.SmartHome.DeviceFunctionalities.Lockable;
+import session_12_OOP_3.Homework.SmartHome.DeviceFunctionalities.Notifiable;
 import session_12_OOP_3.Homework.SmartHome.DeviceFunctionalities.OpenCloseable;
+import session_12_OOP_3.Homework.SmartHome.ExternalIntegrations.WeatherData;
+import session_12_OOP_3.Homework.SmartHome.ExternalIntegrations.WeatherService;
 import session_12_OOP_3.Homework.SmartHome.Types.ControlType;
 
-public class Door extends Device implements OpenCloseable, Lockable {
+import java.time.LocalTime;
+
+public class Door extends Device implements OpenCloseable, Lockable, Notifiable {
     private boolean isOpen;
     private boolean isLocked;
 
@@ -46,6 +51,7 @@ public class Door extends Device implements OpenCloseable, Lockable {
             unlock();
         }
         isOpen = true;
+        alert();
         System.out.println("The " + getName() + " was opened.");
     }
 
@@ -55,6 +61,23 @@ public class Door extends Device implements OpenCloseable, Lockable {
             isOpen = false;
             System.out.println("The " + getName() + " was closed.");
         }
+    }
+
+    @Override
+    public void alert() {
+        if (isOpen && LocalTime.now().getHour() % 2 != 0){
+            getHomeOwner().receiveAlert("The " + getName() + " is open at odd hour.");
+        }
+    }
+
+    @Override
+    protected void checkAPIAndAct() {
+        WeatherData weather = WeatherService.getCurrentWeather();
+
+         if (weather != null && weather.isRainy()){
+             System.out.println("It is raining.");
+             close();
+         }
     }
 
     @Override

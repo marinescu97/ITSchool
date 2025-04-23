@@ -71,6 +71,20 @@ public class SmartHome {
 
         System.out.println("\nEnergy management:\n");
         energyManagement();
+
+        System.out.println("\nSecurity and alerts:\n");
+        securityAndAlerts();
+    }
+
+    public static void securityAndAlerts(){
+        jane.controlDevice("Open the front door");
+        System.out.println();
+
+        entranceCamera.setMovement(true);
+        entranceCamera.setMovement(false);
+        System.out.println();
+
+        smokeDetector.setSmoke(true);
     }
 
     public static void energyManagement(){

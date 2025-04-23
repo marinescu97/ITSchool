@@ -189,6 +189,10 @@ public class User {
         return after.split("\\s+")[0];
     }
 
+    public void receiveAlert(String message){
+        System.out.println("Alert for " + name + ": " + message);
+    }
+
     @Override
     public String toString() {
         return String.format("""
