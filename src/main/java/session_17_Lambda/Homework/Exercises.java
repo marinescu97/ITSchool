@@ -102,13 +102,15 @@ public class Exercises {
         */
 
         public static List<Integer> map(List<Integer> list, Function<Integer, Integer> function){
-            ListMapper mapper = (elements, func) -> {
-                List<Integer> result = new ArrayList<>();
-                elements.forEach(element -> result.add(func.apply(element)));
-                return result;
-            };
+            ListMapper mapper = (elements, func) -> applyFunction(elements, func);
 
             return mapper.map(list, function);
+        }
+
+        private static List<Integer> applyFunction(List<Integer> list, Function<Integer, Integer> function){
+            List<Integer> result = new ArrayList<>();
+            list.forEach(element -> result.add(function.apply(element)));
+            return result;
         }
 
         /*
@@ -117,17 +119,19 @@ public class Exercises {
         */
 
             public static List<Integer> filterList(List<Integer> list){
-                FilterList filterList = elements -> {
-                    List<Integer> result = new ArrayList<>();
-                    elements.forEach(element -> {
-                        if (element % 2 != 0){
-                            result.add(element);
-                        }
-                    });
-                    return result;
-                };
+                FilterList filterList = elements -> addOddElements(elements);
 
                 return filterList.filter(list);
+            }
+
+            private static List<Integer> addOddElements(List<Integer> list){
+                List<Integer> result = new ArrayList<>();
+                list.forEach(element -> {
+                    if (element % 2 != 0){
+                        result.add(element);
+                    }
+                });
+                return result;
             }
 
         /*
@@ -137,16 +141,18 @@ public class Exercises {
         */
 
             public static List<String> transformNames(List<String> names){
-                UpperCase upperCase = list -> {
-                    List<String> result = new ArrayList<>();
-                    for (String s : list) {
-                        result.add(s.toUpperCase());
-                    }
-
-                    return result;
-                };
+                UpperCase upperCase = list -> toUpperCase(list);
 
                 return upperCase.apply(names);
+            }
+
+            private static List<String> toUpperCase(List<String> list){
+                List<String> result = new ArrayList<>();
+                for (String s : list) {
+                    result.add(s.toUpperCase());
+                }
+
+                return result;
             }
 
         /*
@@ -199,15 +205,17 @@ public class Exercises {
         */
 
             public static <T> List<T> filterList(List<T> list, Predicate<T> predicate){
-                ListFilter<T> listFilter = (elements, condition) -> {
-                    List<T> result = new ArrayList<>();
-                    elements.forEach(element -> {
-                        if (condition.test(element)) {
-                            result.add(element);
-                        }
-                    });
-                    return result;
-                };
+                ListFilter<T> listFilter = (elements, condition) -> applyPredicate(elements, condition);
                 return listFilter.filter(list, predicate);
+            }
+
+            private static <T> List<T> applyPredicate(List<T> list, Predicate<T> predicate){
+                List<T> result = new ArrayList<>();
+                list.forEach(element -> {
+                    if (predicate.test(element)) {
+                        result.add(element);
+                    }
+                });
+                return result;
             }
 }
