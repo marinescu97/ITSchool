@@ -27,6 +27,8 @@ public class Tracker {
         do {
             displayMenu();
         } while (choice != 0);
+
+        scanner.close();
     }
 
     public static void displayMenu(){
