@@ -23,7 +23,7 @@ public class Calculator {
         }
     }
 
-    private static double calculate(double firstNumber, double secondNumber, char operator){
+    public static double calculate(double firstNumber, double secondNumber, char operator){
         double result;
         switch (operator){
             case '+' -> result = firstNumber + secondNumber;
